@@ -14,7 +14,7 @@ app.use(cors());
 const productRoutes = require('./routes/product.route');
 const authControllerObj = new authController();
 app.post('/login', authControllerObj.login);
-app.use('/products',authControllerObj.verifyToken, productRoutes);
+app.use('/products', productRoutes);
 //productRoutes(app);
 
 //var containerObj = new container();
