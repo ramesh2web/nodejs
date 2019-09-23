@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 var cors = require('cors');
 const app = express()
 const config = require('./config/config');
-const port = config.port;
+const port = process.env.PORT || 5000;
 const authController = require('./controllers/AuthController');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
