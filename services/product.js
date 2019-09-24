@@ -1,4 +1,5 @@
-const product = function(database) {
+const product = function(database, productModel) {
+this.productModel = productModel;
 this.database = database;
 this.fetchAll =   function() {
 return new Promise((resolve, reject) => {
@@ -30,8 +31,38 @@ this.save = function(productObj) {
         })
 
 });
+}
+
+this.saveIntoMongo = function(productObj) {
+    return new Promise((resolve, reject) => {
+    var productModel = this.productModel;
+    var productModelInstance = new productModel(productObj);
+    productModelInstance.save(function(error,result){
+        if(error) {
+            reject(error);
+        }
+        resolve(result);
+
+    })
+    });
 
 }
+this.search = function(search){
+    return new Promise((resolve, reject)=> {
+        console.log(search.name);
+        var query = this.productModel.find({ 'name': search.name });
+        query.exec(function(error, result) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        })
+
+    });
+
+}
+
+
 }
 
 module.exports = product;

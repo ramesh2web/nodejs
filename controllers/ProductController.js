@@ -33,8 +33,25 @@ this.save = function(req, res) {
     })
 }
 
+this.saveProductByMongo = function(req, res) {
+var productObj = req.body;
+container.product.saveIntoMongo(productObj).then(function(result){
+    res.send(result);
+}).catch(function(error){
+    console.log(error);
+})
+
 }
 
+this.searchInMongoDb = function(req, res) {
+    var body = req.query;  
+    container.product.search(body).then(function(result){
+        res.send(result);
+    }).catch(function(error){
+        res.send(error);
+    })
+}
+}
 
 
 
